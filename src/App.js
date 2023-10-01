@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import About from "./components/About";
+// import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
+// import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 
 function App() {
 
@@ -36,18 +36,19 @@ function App() {
   }
   return (
     <>
-      <BrowserRouter>
-        <HashRouter basename="/">
+      {/* <BrowserRouter>
+        <HashRouter basename="/"> */}
           <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
           <Alert alert={alert}/>
           <div className="container">
-            <Routes>
-              <Route exact path="/about" element={<About />}/>
-              <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={mode}/>} />
-            </Routes>
+            {/* <Routes> */}
+              {/* <Route exact path="/about" element={<About />}/> */}
+              {/* <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={mode}/>} /> */}
+              <TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={mode}/>
+            {/* </Routes> */}
           </div>
-        </HashRouter>
-      </BrowserRouter>
+        {/* </HashRouter>
+      </BrowserRouter> */}
     </>
   );
 }
