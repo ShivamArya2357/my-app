@@ -4,7 +4,7 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
 
@@ -21,7 +21,30 @@ function App() {
     }, 1500);
   };
 
-  const toggleMode = () => {
+  const removeBodyClasses = () => {
+    document.body.classList.remove("bg-light");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("bg-primary");
+    document.body.classList.remove("bg-warning");
+    document.body.classList.remove("bg-success");
+    document.body.classList.remove("bg-danger");
+  }
+
+  const toggleMode = (cls) => {
+    removeBodyClasses();
+    if (cls !== null) {
+      document.body.classList.add('bg-' + cls);
+      if (cls === 'primary') {
+        let buttons = document.querySelectorAll(".btn-primary");
+        buttons.forEach(button => {
+          button.classList.remove("btn-primary");
+        });
+        buttons.forEach(button => {
+          button.classList.add("btn-info");
+        });
+      }
+      return;
+    }
     if (mode === 'light') {
       setMode("dark");
       document.body.style.backgroundColor = "#042743";
@@ -37,16 +60,16 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <HashRouter basename="/">
-          <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
-          <Alert alert={alert}/>
-          <div className="container">
-            <Routes>
-              <Route exact path="/about" element={<About />}/>
-              <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={mode}/>} />
-            </Routes>
-          </div>
-        </HashRouter>
+        <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
+        <Alert alert={alert}/>
+        <div className="container">
+          <Routes>
+            <Route exact path="/about" element={<About mode={mode}/>}/>
+            <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Try TextUtils - Word Counter, Character Counter, 
+            Remove Extra Spaces"
+             mode={mode}/>} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </>
   );
